@@ -1,0 +1,16 @@
+using System;
+
+namespace MovieStoreUI.Entities
+{
+    public class Order
+    {
+        public int Id { get; set; }
+        public double OrderPrice { get; set; }
+        public DateTime OrderDate { get; set; }
+        public bool IsVisible { get; set; } =true;
+        public int MovieId { get; set; }
+        public Movie Movie { get; set; }
+        public int CustomerId { get; set; }
+        public Customer Customer { get; set; }
+    }
+}
