@@ -23,7 +23,7 @@ namespace MovieStoreUI.Application.CustomerOperations.Commands.CreateCustomer
         public IResult Handle()
         {
             var customer = _dbContext.Customers.SingleOrDefault(customer =>customer.Email == Model.Email);
-            if(customer is not null) throw new InvalidOperationException("Kullanıcı Mevcut");
+            if(customer is not null) return new ErrorResult("Kullanıcı Mevcut");
             byte[] passwordHash, passwordSalt;
             HashingHelper.CreatePasswordHash(Model.Password, out passwordHash, out passwordSalt);
             
