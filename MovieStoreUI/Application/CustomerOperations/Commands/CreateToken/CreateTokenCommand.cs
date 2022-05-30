@@ -30,7 +30,7 @@ namespace MovieStoreUI.Application.CustomerOperations.Commands.CreateToken
             
             if(customer is  null || !HashingHelper.VerifyPasswordHash(Model.Password, customer.PasswordHash, customer.PasswordSalt))
             {
-                 throw new InvalidOperationException("Kullancı Adı veya Şifre Hatalı");
+                 return new ErrorDataResult<Token>("Kullancı Adı veya Şifre Hatalı");
             }
             
             else 

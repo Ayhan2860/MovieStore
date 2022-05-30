@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using MovieStoreUI.Common.Results;
 using MovieStoreUI.DbOperations;
 
 namespace MovieStoreUI.Application.DirectorOperations.Commands.DeleteDirector
@@ -13,12 +14,13 @@ namespace MovieStoreUI.Application.DirectorOperations.Commands.DeleteDirector
             _dbContext = dbContext;
         }
 
-       public void Handle()
+       public IResult Handle()
        {
            var director = _dbContext.Directors.SingleOrDefault(director =>director.Id == DirectorId);
-           if(director is null) throw new InvalidOperationException("Yönetmen Bulunamadı");
+           if(director is null) return new ErrorResult("Yönetmen Bulunamadı");
            _dbContext.Directors.Remove(director);
            _dbContext.SaveChanges();
+           return new SuccessResult("Yönetmen Silindi");
        }
     }
 }

@@ -6,8 +6,8 @@ namespace MovieStoreUI.Application.CustomerOperations.Commands.CreateCustomer
     {
        public CreateCustomerValidation()
        {
-           RuleFor(c=>c.Model.FirstName).NotEmpty();
-           RuleFor(c=>c.Model.LastName).NotEmpty();
+           RuleFor(c=>c.Model.FirstName).NotEmpty().MinimumLength(3);
+           RuleFor(c=>c.Model.LastName).NotEmpty().MinimumLength(3);
            RuleFor(c=>c.Model.Email).NotEmpty();
            RuleFor(c=>c.Model.Password).NotEmpty();
            RuleFor(c=>c.Model.Email).EmailAddress();

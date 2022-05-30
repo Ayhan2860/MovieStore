@@ -24,7 +24,7 @@ namespace MovieStore.UnitTests.Applications.CustomerOperations.CustomerCommand
         {
              //arrenge 
              //var customer = _context.Customers.SingleOrDefault(x=> x.Email == "ayhan@gmail.com");
-             var customer =  new Customer{FirstName = "İlker", LastName = "Yigitalp", Email = "ilker@gmail.com"};
+             var customer =  new Customer{FirstName = "Ömer", LastName = "Büyüktaş", Email = "omer@gmail.com"};
              _context.Customers.Add(customer);
              _context.SaveChanges();
              CreateCustomerCommand command  = new CreateCustomerCommand(_context, _mapper);

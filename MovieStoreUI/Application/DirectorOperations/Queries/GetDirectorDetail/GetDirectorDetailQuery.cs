@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using MovieStoreUI.Common.Results;
 using MovieStoreUI.DbOperations;
 
 namespace MovieStoreUI.Application.DirectorOperations.Queries.GetDirectorDetail
@@ -19,12 +20,12 @@ namespace MovieStoreUI.Application.DirectorOperations.Queries.GetDirectorDetail
             _mapper = mapper;
         }
 
-        public DirectorDetailViewModel Handle()
+        public IDataResult<DirectorDetailViewModel> Handle()
         {
             var director = _dbContext.Directors.Include(d=>d.Movies).SingleOrDefault(director =>director.Id == DirectorId);
-            if(director is null) throw new InvalidOperationException("Yönetmen Bulunamadı!");
+            if(director is null) return new ErrorDataResult<DirectorDetailViewModel>("Yönetmen Bulunamadı!");
             DirectorDetailViewModel viewModel = _mapper.Map<DirectorDetailViewModel>(director);
-            return viewModel;
+            return new SuccessDataResult<DirectorDetailViewModel>(viewModel, "Yönetmen Bulundu");
         }
     }
     public class DirectorDetailViewModel

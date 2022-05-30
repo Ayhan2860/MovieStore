@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using MovieStoreUI.Common.Results;
 using MovieStoreUI.DbOperations;
 
 namespace MovieStoreUI.Application.DirectorOperations.Commands.UpdateDirector
@@ -17,13 +18,14 @@ namespace MovieStoreUI.Application.DirectorOperations.Commands.UpdateDirector
             _dbContext = dbContext;
         }
 
-        public void Handle()
+        public IResult Handle()
       {
         var director = _dbContext.Directors.SingleOrDefault(director =>director.Id == DirectorId);
-         if(director == null ) throw new InvalidOperationException("Yönetmen bulunamadı"); 
+         if(director == null ) return new ErrorResult("Yönetmen bulunamadı"); 
          director.FirstName = Model.FirstName != default ? Model.FirstName : director.FirstName;
          director.LastName = Model.LastName != default ? Model.LastName : director.LastName;
          _dbContext.SaveChanges();
+         return new SuccessResult("Yönetmen Güncellendi...");
       }
   }
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using MovieStoreUI.Common.Results;
 using MovieStoreUI.DbOperations;
 
 namespace MovieStoreUI.Application.DirectorOperations.Queries.GetDirectors
@@ -17,12 +18,12 @@ namespace MovieStoreUI.Application.DirectorOperations.Queries.GetDirectors
             _mapper = mapper;
         }
          
-         public List<GetDirectorsViewModel> Handle()
+         public IDataResult<List<GetDirectorsViewModel>> Handle()
          {
              var directors = _dbContext.Directors.Include(d=>d.Movies).OrderBy(movie=>movie.Id).ToList();
-             if(directors.Count < 1) throw new InvalidOperationException("Film Bulunamadı");
+             if(directors.Count < 1) return new ErrorDataResult<List<GetDirectorsViewModel>>("Yönetmen Bulunamadı");
              List<GetDirectorsViewModel> viewModel = _mapper.Map<List<GetDirectorsViewModel>>(directors);
-             return viewModel;
+             return new SuccessDataResult<List<GetDirectorsViewModel>>(viewModel, "Tüm Yönetmenler Listelendi...");
 
          }
 

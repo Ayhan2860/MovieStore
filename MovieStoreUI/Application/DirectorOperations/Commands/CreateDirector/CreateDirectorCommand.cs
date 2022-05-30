@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using AutoMapper;
+using MovieStoreUI.Common.Results;
 using MovieStoreUI.DbOperations;
 using MovieStoreUI.Entities;
 
@@ -18,13 +19,14 @@ namespace MovieStoreUI.Application.DirectorOperations.Commands.CreateDirector
             _mapper = mapper;
         }
 
-        public void Handle()
+        public IResult Handle()
         {
             var director = _dbContext.Directors.SingleOrDefault(director => director.FirstName == Model.FirstName && director.LastName == Model.LastName);
-            if(director is not null) throw new InvalidOperationException("Yönetmen daha önce kayıt edilmiş");
+            if(director is not null) return new ErrorResult("Yönetmen daha önce kayıt edilmiş");
             director = _mapper.Map<Director>(Model);
             _dbContext.Directors.Add(director);
             _dbContext.SaveChanges();
+            return new SuccessResult("Yönetmen Kaydı yapıldı");
         }
     }
     public class CreateDirectorViewModel
