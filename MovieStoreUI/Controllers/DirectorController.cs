@@ -27,7 +27,10 @@ namespace MovieStoreUI.Controllers
         {
             GetDirectorsQueries query = new GetDirectorsQueries(_context, _mapper);
             var result = query.Handle();
-            return Ok(result);
+            if(result.Success)
+                return Ok(result);
+            else
+                return BadRequest(result.Message);
         }
 
         [HttpGet("{id}")]
@@ -38,7 +41,10 @@ namespace MovieStoreUI.Controllers
             query.DirectorId =id;
             validator.ValidateAndThrow(query);
             var result = query.Handle();
-            return Ok(result);
+            if(result.Success)
+                return Ok(result);
+            else
+                return BadRequest(result.Message);
         }
 
         [HttpPost("create")]
@@ -48,8 +54,11 @@ namespace MovieStoreUI.Controllers
             CreateDirectorValidator validator = new CreateDirectorValidator();
             command.Model = director;
             validator.ValidateAndThrow(command);
-            command.Handle();
-            return Ok("Yönetmen Eklendi");
+            var result = command.Handle();
+            if(result.Success)
+                return Ok(result);
+            else
+                return BadRequest(result.Message);
         }
 
         [HttpPut("{id}")]
@@ -60,8 +69,11 @@ namespace MovieStoreUI.Controllers
             command.DirectorId = id;
             command.Model = director;
             validator.Validate(command);
-            command.Handle();
-            return Ok("Yönetmen Güncellendi!");
+            var result = command.Handle();
+            if(result.Success)
+                return Ok(result);
+            else
+                return BadRequest(result.Message);
         }
 
         [HttpDelete("{id}")]
@@ -71,8 +83,11 @@ namespace MovieStoreUI.Controllers
             DeleteDirectorValidator validator = new DeleteDirectorValidator();
             command.DirectorId = id;
             validator.ValidateAndThrow(command);
-            command.Handle();
-            return Ok("Yönetmen Silindi");
+            var result = command.Handle();
+            if(result.Success)
+                return Ok(result);
+            else
+                return BadRequest(result);
         }
     }
 }

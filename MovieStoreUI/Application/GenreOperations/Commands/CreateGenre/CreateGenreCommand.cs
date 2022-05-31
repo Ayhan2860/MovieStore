@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using AutoMapper;
+using MovieStoreUI.Common.Results;
 using MovieStoreUI.DbOperations;
 using MovieStoreUI.Entities;
 
@@ -17,13 +18,14 @@ namespace MovieStoreUI.Application.GenreOperations.Commands.CreateGenre
             _mapper = mapper;
         }
 
-        public void Handle()
+        public IResult Handle()
         {
             var genre = _dbContext.Genres.SingleOrDefault(genre => genre.Name == Model.Name);
-            if(genre is not null) throw new InvalidOperationException("Bu tür adı daha önce kayıt edilmiş");
+            if(genre is not null) return new ErrorResult("Bu tür adı daha önce kayıt edilmiş");
             genre = _mapper.Map<Genre>(Model);
             _dbContext.Genres.Add(genre);
             _dbContext.SaveChanges();
+            return new SuccessResult("Tür Adı Kaydedildi");
         }
     }
 

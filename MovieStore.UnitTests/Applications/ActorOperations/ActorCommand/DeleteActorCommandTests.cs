@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using FluentAssertions;
 using MovieStore.UnitTests.TestSetup;

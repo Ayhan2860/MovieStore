@@ -27,7 +27,10 @@ namespace MovieStoreUI.Controllers
         {
             GetAllGenresQuery query = new GetAllGenresQuery(_context, _mapper);
             var result = query.Handle();
-            return Ok(result);
+            if(result.Success)
+                return Ok(result);
+            else
+                return BadRequest(result);
         }
 
         [HttpGet("{id}")]
@@ -38,7 +41,10 @@ namespace MovieStoreUI.Controllers
             query.GenreId = id;
             validator.ValidateAndThrow(query);
             var result = query.Handle();
-            return Ok(result);
+            if(result.Success)
+                return Ok(result);
+            else
+                return BadRequest(result);
         }
 
 
@@ -49,8 +55,11 @@ namespace MovieStoreUI.Controllers
             CreateGenreValidator validator = new CreateGenreValidator();
             command.Model = genreViewModel;
             validator.ValidateAndThrow(command);
-            command.Handle();
-            return Ok("Tür Adı Eklendi");
+            var result =command.Handle();
+            if(result.Success)
+                return Ok(result);
+            else
+                return BadRequest(result);
         }
 
         [HttpPut("{id}")]
@@ -61,9 +70,11 @@ namespace MovieStoreUI.Controllers
             command.GenreId = id;
             command.Model = genreViewModel;
             validator.ValidateAndThrow(command);
-            command.Handle();
-
-            return Ok("Tür Adı Güncellendi");
+            var result = command.Handle();
+            if(result.Success)
+                return Ok(result);
+            else
+                return BadRequest(result);
 
         }
 
@@ -74,9 +85,11 @@ namespace MovieStoreUI.Controllers
             DeleteGenreValidator validator = new DeleteGenreValidator();
             command.GenreId = id;
             validator.ValidateAndThrow(command);
-            command.Handle();
-
-            return Ok("Tür Adı Silindi");
+            var result = command.Handle();
+            if(result.Success)
+                return Ok(result);
+            else
+                return BadRequest(result);
         }
         
     }

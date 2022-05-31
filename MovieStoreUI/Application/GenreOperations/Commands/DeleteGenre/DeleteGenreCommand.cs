@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using MovieStoreUI.Common.Results;
 using MovieStoreUI.DbOperations;
 
 namespace MovieStoreUI.Application.GenreOperations.Commands.DeletGenre
@@ -14,12 +15,13 @@ namespace MovieStoreUI.Application.GenreOperations.Commands.DeletGenre
             _dbContext = dbContext;
         }
 
-        public void Handle()
+        public IResult Handle()
         {
             var genre = _dbContext.Genres.SingleOrDefault(genre=>genre.Id == GenreId);
-            if(genre is null) throw new InvalidOperationException("Böyle bir tür adı bulunamadı");
+            if(genre is null) return new ErrorResult("Böyle bir tür adı bulunamadı");
             _dbContext.Genres.Remove(genre);
             _dbContext.SaveChanges();
+            return new SuccessResult("Tür Adı Silindi");
         }
     }
 }

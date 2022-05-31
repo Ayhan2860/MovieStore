@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using AutoMapper;
+using MovieStoreUI.Common.Results;
 using MovieStoreUI.DbOperations;
 
 namespace MovieStoreUI.Application.GenreOperations.Queries.GetGenreDetail
@@ -16,12 +17,12 @@ namespace MovieStoreUI.Application.GenreOperations.Queries.GetGenreDetail
             _dbContext = dbContext;
             _mapper = mapper;
         }
-        public GetGenreDetailViewModel Handle()
+        public IDataResult<GetGenreDetailViewModel> Handle()
         {
             var genre = _dbContext.Genres.SingleOrDefault(genre => genre.Id == GenreId);
-            if(genre is null) throw new InvalidOperationException("Bu isimde böyle bir tür bulunamadı");
+            if(genre is null) return new ErrorDataResult<GetGenreDetailViewModel>("Bu isimde böyle bir tür bulunamadı");
             GetGenreDetailViewModel viewModel = _mapper.Map<GetGenreDetailViewModel>(genre);
-            return viewModel;
+            return new SuccessDataResult<GetGenreDetailViewModel>(viewModel, "Tür Adı Bulundu");
         }
 
     }
