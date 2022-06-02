@@ -59,7 +59,7 @@ Bir geliştirme sunucusu için `dotnet watch run` komutunu çalıştırın. `htt
 #### Operasyonlar
 - Sipariş Ekleme
 - Sipariş Silme (Aktif-Pasif)
-- Müşteri Id'ye Göre Sipariş Detayı
+- Müşteri Id'ye Göre Siparişleri Listeleme
 - Sipariş Id'ye Göre Sipariş Detayı
 </details><hr>
 
