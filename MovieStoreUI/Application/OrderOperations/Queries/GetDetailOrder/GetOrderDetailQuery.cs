@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using MovieStoreUI.Common.Results;
 using MovieStoreUI.DbOperations;
 
 namespace MovieStoreUI.Application.OrderOperations.Queries.GetDetailOrder
@@ -17,17 +18,17 @@ namespace MovieStoreUI.Application.OrderOperations.Queries.GetDetailOrder
             _mapper = mapper;
         }
 
-        public OrderDetailViewModel Handle()
+        public IDataResult<OrderDetailViewModel> Handle()
         {
             var order = _dbContext.Orders
             .Include(o =>o.Customer)
             .Include(m => m.Movie)
             .FirstOrDefault(x => x.Id == OrderId);
 
-            if(order is null) throw new InvalidOperationException("Sipariş Bulunamadı...");
+            if(order is null) return new ErrorDataResult<OrderDetailViewModel>("Sipariş Bulunamadı...");
             OrderDetailViewModel viewModel = _mapper.Map<OrderDetailViewModel>(order);
 
-            return viewModel;
+            return new SuccessDataResult<OrderDetailViewModel>(viewModel);
         }
 
     }

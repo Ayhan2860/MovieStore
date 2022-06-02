@@ -9,7 +9,7 @@ namespace MovieStore.UnitTests.Applications.ActorOperations.ActorCommand
     {
         [Theory]
         [InlineData("", "")]
-         public void WhenInvalidInputActorIdAreGiven_Validator_ShouldBeReturnErrors(string firstName, string lastName)
+         public void WhenInvalidInputActorIdAreGiven_Validator_ShouldBeErrors(string firstName, string lastName)
          {
             // arrenge
              UpdateActorCommand command = new UpdateActorCommand(null);
@@ -30,7 +30,7 @@ namespace MovieStore.UnitTests.Applications.ActorOperations.ActorCommand
          }
 
          [Fact]
-         public void WhenValidInputAuthorIdAreGiven_Validator_ShouldNotBeReturnErrors()
+         public void WhenValidInputActorIdAreGiven_Validator_ShouldNotBeReturnErrors()
          {
               // arrenge
              UpdateActorCommand command = new UpdateActorCommand(null);

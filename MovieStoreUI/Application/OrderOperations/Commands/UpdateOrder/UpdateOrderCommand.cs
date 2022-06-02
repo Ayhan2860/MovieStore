@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using MovieStoreUI.Common.Results;
 using MovieStoreUI.DbOperations;
 
 namespace MovieStoreUI.Application.OrderOperations.Commands.UpdateOrder
@@ -15,14 +16,13 @@ namespace MovieStoreUI.Application.OrderOperations.Commands.UpdateOrder
             _dbContext = dbContext;
         }
 
-        public void Handle()
+        public IResult Handle()
         {
             var order = _dbContext.Orders.SingleOrDefault(o=> o.Id == OrderId);
-            if(order is null) throw new InvalidOperationException("Güncellenecek Sipariş Bulunamadı");
-            order.CustomerId = Model.CustomerId != default ? Model.CustomerId : order.CustomerId;
-            order.MovieId = Model.MovieId != default ? Model.MovieId : order.MovieId;
-            order.OrderPrice  = Model.OrderPrice != default ? Model.OrderPrice : order.OrderPrice;
+            if(order is null) return new ErrorResult("Silinecek Sipariş Bulunamadı");
+            order.IsVisible  = Model.IsVisible != default ? Model.IsVisible : order.IsVisible;
             _dbContext.SaveChanges();
+            return new SuccessResult("Siparişiniz Silindi");
 
         }
 
@@ -30,8 +30,6 @@ namespace MovieStoreUI.Application.OrderOperations.Commands.UpdateOrder
 
     public class UpdateOrderViewModel
     {
-        public int CustomerId { get; set; }
-        public int MovieId { get; set; }
-        public double OrderPrice { get; set; }
+        public bool IsVisible { get; set; }
     }
 }

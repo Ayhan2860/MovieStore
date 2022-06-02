@@ -5,12 +5,13 @@ using Xunit;
 
 namespace MovieStore.UnitTests.Applications.CustomerOperations.CustomerCommand
 {
+    
     public class CreateCustomerCommandValidatorTests:IClassFixture<CommonTestFixture>
     {
         [Theory]
         [InlineData("", "", "", "")]
         [InlineData("ay", "ka", "ayhan", "1234")]
-        public void WhenInvalidInputCustomerAreGiven_Validator_ShouldBeReturnErrors
+        public void WhenInvalidInputCustomerAreGiven_Validator_ShouldBeErrors
         (string firstName, string lastName, string email, string password)
         {
              //arrenge
@@ -32,7 +33,7 @@ namespace MovieStore.UnitTests.Applications.CustomerOperations.CustomerCommand
         }
 
         [Fact]
-        public void WhenInvalidInputCustomerAreGiven_Validator_ShouldNotBeReturnErrors()
+        public void WhenValidInputCustomerAreGiven_Validator_ShouldNotBeReturnErrors()
         {
              //arrenge
             CreateCustomerCommand command = new CreateCustomerCommand(null, null);

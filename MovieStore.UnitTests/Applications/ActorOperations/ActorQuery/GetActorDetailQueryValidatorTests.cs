@@ -10,7 +10,7 @@ namespace MovieStore.UnitTests.Applications.ActorOperations.ActorQuery
         [Theory]
         [InlineData(0)]
         [InlineData(null)]
-        public void WhenInvalidInputActorIdAreGiven_Validator_ShouldBeReturnErrors(int id)
+        public void WhenInvalidInputActorIdAreGiven_Validator_ShouldBeErrors(int id)
         {
             //arrenge
             GetActorDetailQuery query = new GetActorDetailQuery(null, null);
@@ -25,7 +25,7 @@ namespace MovieStore.UnitTests.Applications.ActorOperations.ActorQuery
         }
 
         [Fact]
-        public void WhenValidInputAuthorAreGiven_Validator_ShouldNotBeReturnErrors()
+        public void WhenValidInputActorIdAreGiven_Validator_ShouldNotBeReturnErrors()
         {
               //arrenge
             GetActorDetailQuery query = new GetActorDetailQuery(null, null);

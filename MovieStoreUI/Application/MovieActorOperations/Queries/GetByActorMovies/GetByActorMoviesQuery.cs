@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using MovieStoreUI.Common.Results;
 using MovieStoreUI.DbOperations;
 
 namespace MovieStoreUI.Application.MovieActorOperations.Queries.GetByActorMovies
@@ -18,12 +19,12 @@ namespace MovieStoreUI.Application.MovieActorOperations.Queries.GetByActorMovies
             _dbContext = dbContext;
             _mapper = mapper;
         }
-        public List<ActorMoviesViewModel> Handle()
+        public IDataResult<List<ActorMoviesViewModel>> Handle()
         {
             var movies = _dbContext.MovieActors.Include(ac => ac.Movie).Where(ma =>ma.ActorId == ActorId);
-            if(movies is null) throw new InvalidOperationException("Oyuncuya ait film bulunamadı");
+            if(movies is null) return new ErrorDataResult<List<ActorMoviesViewModel>>("Oyuncuya ait film bulunamadı");
             var actorMovies = _mapper.Map<List<ActorMoviesViewModel>>(movies);
-            return actorMovies;
+            return new SuccessDataResult<List<ActorMoviesViewModel>>(actorMovies);
         }
 
     }

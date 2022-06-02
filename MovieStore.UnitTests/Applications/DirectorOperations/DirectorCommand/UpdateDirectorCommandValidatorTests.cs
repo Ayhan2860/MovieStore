@@ -10,7 +10,7 @@ namespace MovieStore.UnitTests.Applications.DirectorOperations.DirectorCommand
         [Theory]
         [InlineData(0, "", "")]
         [InlineData(null, null, null)]
-        public void WhenAllReadyExistDirectorIdInputGiven_Validator_ShouldBeErrors(int id, string firstName, string lastName)
+        public void WhenInvalidInputDirectorIdAreGiven_Validator_ShouldBeErrors(int id, string firstName, string lastName)
         {
             // arrenge
             UpdateDirectorCommand command = new UpdateDirectorCommand(null);
@@ -32,7 +32,7 @@ namespace MovieStore.UnitTests.Applications.DirectorOperations.DirectorCommand
 
         [Theory]
         [InlineData(1, "Engin", "Demiroğ")]
-        public void WhenAllReadyExistDirectorIdInputGiven_Validator_ShouldNotBeErrors(int id, string firstName, string lastName)
+        public void  WhenValidInputDirectorIdAreGiven_Validator_ShouldNotBeReturnErrors(int id, string firstName, string lastName)
         {
             // arrenge
             UpdateDirectorCommand command = new UpdateDirectorCommand(null);

@@ -3,7 +3,6 @@ using FluentValidation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MovieStoreUI.Application.OrderOperations.Commands.CreateOrder;
-using MovieStoreUI.Application.OrderOperations.Commands.DeleteOrder;
 using MovieStoreUI.Application.OrderOperations.Commands.UpdateOrder;
 using MovieStoreUI.Application.OrderOperations.Queries.GetByCustomerIdOrderDetail;
 using MovieStoreUI.Application.OrderOperations.Queries.GetDetailOrder;
@@ -31,22 +30,29 @@ namespace MovieStoreUI.Controllers
             CreateOrderValidator validator = new CreateOrderValidator();
             command.Model = orderViewModel;
             validator.ValidateAndThrow(command);
-            command.Handle();
-            return Ok("Sipariş eklendi");
+            var result = command.Handle();
+            if(result.Success)
+                return Ok(result);
+            else
+                return BadRequest(result);
         }
 
-        // [HttpPut("{id}")]
-        // public IActionResult UpdateOrder(UpdateOrderViewModel orderViewModel, int id)
-        // {
-        //     UpdateOrderCommand command = new UpdateOrderCommand(_context);
-        //     UpdateOrderValidator validate = new UpdateOrderValidator();
-        //     command.OrderId = id;
-        //     command.Model = orderViewModel;
-        //     validate.ValidateAndThrow(command);
-        //     command.Handle();
-        //     return Ok("Sipariş Güncellendi");
+        [HttpPut("{id}")]
+        public IActionResult UpdateOrder(UpdateOrderViewModel orderViewModel, int id)
+        {
+            UpdateOrderCommand command = new UpdateOrderCommand(_context);
+            UpdateOrderValidator validate = new UpdateOrderValidator();
+            command.OrderId = id;
+            command.Model = orderViewModel;
+            validate.ValidateAndThrow(command);
+            var result = command.Handle();
+            if(result.Success)
+                return Ok(result);
+            else
+                return BadRequest(result);
+             
             
-        // }
+        }
 
         [HttpGet("{customerId}")]
         public IActionResult GetByCustomerIdOrderDetail(int customerId)
@@ -56,8 +62,10 @@ namespace MovieStoreUI.Controllers
             query.CustomerId = customerId;
             validate.ValidateAndThrow(query);
             var result = query.Handle();
-
-            return Ok(result);
+            if(result.Success)
+                return Ok(result);
+            else
+                return BadRequest(result);
 
         }
 
@@ -69,22 +77,14 @@ namespace MovieStoreUI.Controllers
             query.OrderId = id;
             validate.ValidateAndThrow(query);
             var result = query.Handle();
-
-            return Ok(result);
-
-        }
-
-        [HttpPut("orderDelete/{id}")]
-        public IActionResult PassiveDelete(int id)
-        {
-            DeleteOrderCommand command = new DeleteOrderCommand(_context);
-            DeleteOrderValidator validator = new DeleteOrderValidator();
-            command.OrderId = id;
-            validator.ValidateAndThrow(command);
-            command.Handle();
-            return Ok("silindi");
+            if(result.Success)
+                return Ok(result);
+            else
+                return BadRequest(result);
 
         }
+
+       
 
     }
 }

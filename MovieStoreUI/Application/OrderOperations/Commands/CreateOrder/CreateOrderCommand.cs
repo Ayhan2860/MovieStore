@@ -1,5 +1,7 @@
 using System;
+using System.Linq;
 using AutoMapper;
+using MovieStoreUI.Common.Results;
 using MovieStoreUI.DbOperations;
 using MovieStoreUI.Entities;
 
@@ -16,13 +18,16 @@ namespace MovieStoreUI.Application.OrderOperations.Commands.CreateOrder
             _mapper = mapper;
         }
 
-        public void Handle()
+        public IResult Handle()
         {
+            var movie = _dbContext.Movies.SingleOrDefault(x => x.Id == Model.MovieId);
+             if(movie is null) return new ErrorResult("");
             var order = _mapper.Map<Order>(Model);
             order.OrderDate = DateTime.Now;
+            order.OrderPrice = movie.Price; 
             _dbContext.Orders.Add(order);
             _dbContext.SaveChanges();
-            
+            return new SuccessResult("Satın Alma İşlemi Gerçekleşti");
         }
 
     }
@@ -31,6 +36,5 @@ namespace MovieStoreUI.Application.OrderOperations.Commands.CreateOrder
     {
         public int CustomerId { get; set; }
         public int MovieId { get; set; }
-        public double OrderPrice { get; set; }
     }
 }

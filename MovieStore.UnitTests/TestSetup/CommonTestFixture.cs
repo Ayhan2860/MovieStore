@@ -19,6 +19,9 @@ namespace MovieStore.UnitTests.TestSetup
             Context.AddCustomers();
             Context.AddDirectors();
             Context.AddGenres();
+            Context.AddMovies();
+            Context.AddMovieActors();
+            Context.AddOrders();
             Context.SaveChanges();
             Mapper = new MapperConfiguration(cfg=>{cfg.AddProfile<MappingProfile>(); }).CreateMapper();
         }

@@ -9,7 +9,7 @@ namespace MovieStore.UnitTests.Applications.GenreOperations.GenreQuery
     {
         [Theory]
         [InlineData(null)]
-        public void WhenAllReadyExistGenreIdInputGiven_Validator_ShouldBeErrors(int id)
+        public void WhenInvalidInputGenreIdAreGiven_Validator_ShouldBeErrors(int id)
         {
             // arrenge
             GetGenreDetailQuery query = new GetGenreDetailQuery(null, null);
@@ -26,7 +26,7 @@ namespace MovieStore.UnitTests.Applications.GenreOperations.GenreQuery
 
         [Theory]
         [InlineData(1)]
-        public void WhenAllReadyExistGenreIdInputGiven_Validator_ShouldNotBeErrors(int id)
+        public void WhenValidInputGenreIdAreGiven_Validator_ShouldNotBeReturnErrors(int id)
         {
             // arrenge
             GetGenreDetailQuery query = new GetGenreDetailQuery(null, null);
@@ -40,5 +40,6 @@ namespace MovieStore.UnitTests.Applications.GenreOperations.GenreQuery
             result.Errors.Count.Should().BeLessThanOrEqualTo(0);
 
         }
+        
     }
 }

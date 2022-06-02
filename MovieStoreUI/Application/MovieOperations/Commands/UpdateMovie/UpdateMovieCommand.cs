@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using MovieStoreUI.Common.Results;
 using MovieStoreUI.DbOperations;
 
 namespace MovieStoreUI.Application.MovieOperations.Commands.UpdateMovie
@@ -15,16 +16,17 @@ namespace MovieStoreUI.Application.MovieOperations.Commands.UpdateMovie
             _dbContext = dbContext;
         }
 
-        public void Handle()
+        public IResult Handle()
         {
             var movie = _dbContext.Movies.SingleOrDefault(movie=>movie.Id == MovieId);
-            if(movie is null) throw new InvalidOperationException("Güncellenecek film bulunamadı");
+            if(movie is null) return new ErrorResult("Güncellenecek film bulunamadı");
               movie.Title = Model.Title != default ? Model.Title : movie.Title;
               movie.DirectorId = Model.DirectorId != default ? Model.DirectorId : movie.DirectorId;
               movie.GenreId = Model.GenreId != default ? Model.GenreId : movie.GenreId;
               movie.Price = Model.Price != default ? Model.Price : movie.Price;
               movie.ReleaseDate = Model.ReleaseDate != default ? Model.ReleaseDate : movie.ReleaseDate;
               _dbContext.SaveChanges();
+              return new SuccessResult("Film Güncellendi");
         }
     }
 

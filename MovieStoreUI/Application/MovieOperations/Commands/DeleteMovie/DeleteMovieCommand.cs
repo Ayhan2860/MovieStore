@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using MovieStoreUI.Common.Results;
 using MovieStoreUI.DbOperations;
 
 namespace MovieStoreUI.Application.MovieOperations.Commands.DeleteMovie
@@ -14,12 +15,13 @@ namespace MovieStoreUI.Application.MovieOperations.Commands.DeleteMovie
             _dbContext = dbContext;
         }
 
-        public void Handle()
+        public IResult Handle()
         {
             var movie = _dbContext.Movies.SingleOrDefault(movie =>movie.Id == MovieId);
-            if(movie is null) throw new InvalidOperationException("Silinecek film bulunamadı");
+            if(movie is null) return new ErrorResult("Silinecek film bulunamadı");
             _dbContext.Movies.Remove(movie);
             _dbContext.SaveChanges();
+            return new SuccessResult("Film Kaydı Silindi");
         }
     }
 }

@@ -10,7 +10,7 @@ namespace MovieStore.UnitTests.Applications.ActorOperations.ActorCommand
          [Theory]
          [InlineData(0)]
          [InlineData(null)]
-         public void WhenInvalidInputActorIdAreGiven_Validator_ShouldBeReturnErrors(int id)
+         public void WhenInvalidInputActorIdAreGiven_Validator_ShouldBeErrors(int id)
          {
             // arrenge
              DeleteActorCommand command = new DeleteActorCommand(null);
@@ -26,7 +26,7 @@ namespace MovieStore.UnitTests.Applications.ActorOperations.ActorCommand
          }
 
          [Fact]
-         public void WhenValidInputAuthorIdAreGiven_Validator_ShouldNotBeReturnErrors()
+         public void WhenValidInputActorIdAreGiven_Validator_ShouldNotBeReturnErrors()
          {
               // arrenge
              DeleteActorCommand command = new DeleteActorCommand(null);

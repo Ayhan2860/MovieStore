@@ -8,7 +8,7 @@ namespace MovieStore.UnitTests.Applications.DirectorOperations.DirectorCommand
     public class DeleteDirectorCommandValidatorTests:IClassFixture<CommonTestFixture>
     {
         [Fact]
-        public void WhenAllReadyExistDirectorIdInputGiven_Validator_ShouldBeErrors()
+        public void WhenInvalidInputDirectorIdAreGiven_Validator_ShouldBeErrors()
         {
             //arrenge
             DeleteDirectorCommand command = new DeleteDirectorCommand(null);
@@ -22,7 +22,7 @@ namespace MovieStore.UnitTests.Applications.DirectorOperations.DirectorCommand
         }
 
         [Fact]
-        public void WhenAllReadyExistDirectorIdInputGiven_Validator_ShouldNotBeErrors()
+        public void WhenValidInputDirectorIdAreGiven_Validator_ShouldNotBeReturnErrors()
         {
             //arrenge
             DeleteDirectorCommand command = new DeleteDirectorCommand(null);

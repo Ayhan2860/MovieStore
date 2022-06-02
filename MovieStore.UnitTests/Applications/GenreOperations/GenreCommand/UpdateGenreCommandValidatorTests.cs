@@ -7,9 +7,10 @@ namespace MovieStore.UnitTests.Applications.GenreOperations.GenreCommand
 {
     public class UpdateGenreCommandValidatorTests:IClassFixture<CommonTestFixture>
     {
+        
         [Theory]
         [InlineData(null, null)]
-        public void WhenAllReadyExistGenreIdInputGiven_Validator_ShouldBeErrors(int id, string name)
+        public void WhenInvalidInputGenreIdAreGiven_Validator_ShouldBeErrors(int id, string name)
         {
              // arrenge
             UpdateGenreCommand command = new UpdateGenreCommand(null);
@@ -26,7 +27,7 @@ namespace MovieStore.UnitTests.Applications.GenreOperations.GenreCommand
 
          [Theory]
         [InlineData(1, "Polisiye")]
-        public void WhenAllReadyExistGenreIdInputGiven_Validator_ShouldNotBeErrors(int id, string name)
+        public void WhenValidInputGenreIdAreGiven_Validator_ShouldNotBeReturnErrors(int id, string name)
         {
              // arrenge
             UpdateGenreCommand command = new UpdateGenreCommand(null);

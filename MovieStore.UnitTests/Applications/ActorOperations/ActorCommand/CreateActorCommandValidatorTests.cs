@@ -7,9 +7,10 @@ namespace MovieStore.UnitTests.Applications.ActorOperations.ActorCommand
 {
     public class CreateActorCommandValidatorTests:IClassFixture<CommonTestFixture>
     {
+        
         [Theory]
         [InlineData("", "")]
-        public void WhenInvalidInputActorAreGiven_Validator_ShouldBeReturnErrors(string firstName, string lastName)
+        public void WhenInvalidInputActorAreGiven_Validator_ShouldBeErrors(string firstName, string lastName)
         {
              //arrenge
              CreateActorCommand command = new CreateActorCommand(null, null);
@@ -29,7 +30,7 @@ namespace MovieStore.UnitTests.Applications.ActorOperations.ActorCommand
         }
 
         [Fact]
-        public void WhenValidInputAuthorAreGiven_Validator_ShouldNotBeReturnErrors()
+        public void WhenValidInputActorIdAreGiven_Validator_ShouldNotBeReturnErrors()
         {    //arrenge
              CreateActorCommand command = new CreateActorCommand(null, null);
              command.Model =  new CreateActorViewModel

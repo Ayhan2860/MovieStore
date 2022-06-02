@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using MovieStoreUI.Common.Results;
 using MovieStoreUI.DbOperations;
 
 namespace MovieStoreUI.Application.OrderOperations.Queries.GetByCustomerIdOrderDetail
@@ -17,13 +18,13 @@ namespace MovieStoreUI.Application.OrderOperations.Queries.GetByCustomerIdOrderD
             _dbContext = dbContext;
             _mapper = mapper;
         }
-        public List<GetByCustomerIdOrderDetailViewModel> Handle()
+        public IDataResult<List<GetByCustomerIdOrderDetailViewModel>> Handle()
         {
             var orders = _dbContext.Orders.Include(order => order.Movie).Where(x => x.CustomerId == CustomerId).ToList();
             if(orders.Count < 1)
-                throw new InvalidOperationException("Sipariş Bulunamadı");
+                return new ErrorDataResult<List<GetByCustomerIdOrderDetailViewModel>>("Sipariş Bulunamadı");
             List<GetByCustomerIdOrderDetailViewModel> viewModel = _mapper.Map<List<GetByCustomerIdOrderDetailViewModel>>(orders);
-            return viewModel;
+            return new SuccessDataResult<List<GetByCustomerIdOrderDetailViewModel>>(viewModel);
         }
     }
    public class GetByCustomerIdOrderDetailViewModel

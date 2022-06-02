@@ -19,7 +19,7 @@ namespace MovieStore.UnitTests.Applications.GenreOperations.GenreQuery
         }
 
         [Fact]
-        public void WhenAllReadyExistGenreIdInputGiven_ErrorResult_ShouldBeReturn()
+        public void WhenAllGenresAreRequested_ErrorResult_ShouldBeReturn()
         {
             // arrenge
             GetAllGenresQuery query = new GetAllGenresQuery(_context, _mapper);
@@ -37,7 +37,7 @@ namespace MovieStore.UnitTests.Applications.GenreOperations.GenreQuery
         }
 
         [Fact]
-        public void WhenAllReadyExistGenreIdInputGiven_Genre_ShouldBeReturn()
+        public void WhenAllGenresAreRequested_Genre_ShouldBeReturn()
         {
             // arrenge
             GetAllGenresQuery query = new GetAllGenresQuery(_context, _mapper);

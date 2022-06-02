@@ -8,7 +8,7 @@ namespace MovieStore.UnitTests.Applications.DirectorOperations.DirectorQuery
     public class GetDirectorDetailQueryValidatorTests:IClassFixture<CommonTestFixture>
     {
         [Fact]
-        public void WhenAllReadyExistDirectorIdInputGiven_Validator_ShouldBeErrors()
+        public void WhenInvalidInputDirectorIdAreGiven_Validator_ShouldBeErrors()
         {
              // arrenge
             GetDirectorDetailQuery query = new GetDirectorDetailQuery(null, null);
@@ -24,7 +24,7 @@ namespace MovieStore.UnitTests.Applications.DirectorOperations.DirectorQuery
         }
 
         [Fact]
-        public void WhenAllReadyExistDirectorIdInputGiven_Validator_ShouldNotBeErrors()
+        public void  WhenValidInputDirectorIdAreGiven_Validator_ShouldNotBeReturnErrors()
         {
              // arrenge
             GetDirectorDetailQuery query = new GetDirectorDetailQuery(null, null);

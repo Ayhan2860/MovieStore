@@ -7,9 +7,11 @@ namespace MovieStore.UnitTests.Applications.GenreOperations.GenreCommand
 {
     public class DeleteGenreCommandValidatorTests:IClassFixture<CommonTestFixture>
     {
+        // WhenInvalidInputGenreIdAreGiven_Validator_ShouldBeErrors
+// WhenValidInputGenreIdAreGiven_Validator_ShouldNotBeReturnErrors
         [Theory]
         [InlineData(null)]
-        public void WhenAllReadyExistGenreIdInputGiven_Validator_ShouldBeErrors(int id)
+        public void WhenInvalidInputGenreIdAreGiven_Validator_ShouldBeErrors(int id)
         {
             // arrenge
             DeleteGenreCommand command = new DeleteGenreCommand(null);
@@ -27,7 +29,7 @@ namespace MovieStore.UnitTests.Applications.GenreOperations.GenreCommand
 
         [Theory]
         [InlineData(4)]
-        public void WhenAllReadyExistGenreIdInputGiven_Validator_ShouldNotBeErrors(int id)
+        public void  WhenValidInputGenreIdAreGiven_Validator_ShouldNotBeReturnErrors(int id)
         {
             // arrenge
             DeleteGenreCommand command = new DeleteGenreCommand(null);

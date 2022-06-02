@@ -10,7 +10,7 @@ using MovieStoreUI.DbOperations;
 
 namespace MovieStoreUI.Controllers
 {
-    [Authorize]
+   
     [Route("[controller]s")]
     [ApiController]
     public class MovieController:ControllerBase
@@ -28,7 +28,10 @@ namespace MovieStoreUI.Controllers
         {
             GetMoviesQueries query = new GetMoviesQueries(_context, _mapper);
             var result = query.Handle();
-            return Ok(result);
+            if(result.Success)
+                return Ok(result);
+            else
+                return BadRequest(result);
         }
         [HttpGet("{id}")]
         public IActionResult GetByIdMovie(int id)
@@ -36,7 +39,10 @@ namespace MovieStoreUI.Controllers
             GetMovieDetailQuery query = new GetMovieDetailQuery(_context, _mapper);
             query.MovieId = id;
             var result = query.Handle();
-            return Ok(result);
+            if(result.Success)
+                return Ok(result);
+            else
+                return BadRequest(result);
         }
 
         [HttpPost]
@@ -44,8 +50,11 @@ namespace MovieStoreUI.Controllers
         {
             CreateMovieCommand command = new CreateMovieCommand(_context, _mapper);
             command.Model = movieModel;
-            command.Handle();
-            return Ok("Film eklendi");
+            var result = command.Handle();
+            if(result.Success)
+                return Ok(result);
+            else
+                return BadRequest(result);
         }
 
         [HttpPut("{id}")]
@@ -54,8 +63,11 @@ namespace MovieStoreUI.Controllers
             UpdateMovieCommand command = new UpdateMovieCommand(_context);
             command.MovieId = id;
             command.Model = movieModel;
-            command.Handle();
-            return Ok("Film güncellendi");
+            var result = command.Handle();
+            if(result.Success)
+                return Ok(result);
+            else
+                return BadRequest(result);
         }
 
          [HttpDelete("{id}")]
@@ -63,8 +75,11 @@ namespace MovieStoreUI.Controllers
         {
             DeleteMovieCommand command = new DeleteMovieCommand(_context);
             command.MovieId = id;
-            command.Handle();
-            return Ok("Film Silindi");
+            var result = command.Handle();
+            if(result.Success)
+                return Ok(result);
+            else
+                return BadRequest(result);
         }
     }
 }

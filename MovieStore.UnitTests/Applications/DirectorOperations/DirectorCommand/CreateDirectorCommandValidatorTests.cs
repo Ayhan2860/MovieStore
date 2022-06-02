@@ -7,9 +7,10 @@ namespace MovieStore.UnitTests.Applications.DirectorOperations.DirectorCommand
 {
     public  class CreateDirectorCommandValidatorTests:IClassFixture<CommonTestFixture>
     {
+        
         [Theory]
         [InlineData("", "")]
-        public void WhenAllReadyExistDirectorInputGiven_Validator_ShouldBeErrors(string firstName, string lastName)
+        public void WhenInvalidInputDirectorAreGiven_Validator_ShouldBeErrors(string firstName, string lastName)
         {
             //arrenge
             CreateDirectorCommand command = new CreateDirectorCommand(null, null);
@@ -29,7 +30,7 @@ namespace MovieStore.UnitTests.Applications.DirectorOperations.DirectorCommand
 
         [Theory]
         [InlineData("Mevlüt", "Karaman")]
-        public void WhenAllReadyExistDirectorInputGiven_Validator_ShouldNotBeErrors(string firstName, string lastName)
+        public void WhenValidInputDirectorAreGiven_Validator_ShouldNotBeReturnErrors(string firstName, string lastName)
         {
             //arrenge
             CreateDirectorCommand command = new CreateDirectorCommand(null, null);

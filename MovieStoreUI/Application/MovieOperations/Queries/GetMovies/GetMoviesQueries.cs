@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using MovieStoreUI.Common.Results;
 using MovieStoreUI.DbOperations;
 using MovieStoreUI.Entities;
 
@@ -18,12 +19,12 @@ namespace MovieStoreUI.Application.MovieOperations.Queries.GetMovies
             _mapper = mapper;
         }
 
-        public List<GetMoviesViewModel> Handle()
+        public IDataResult<List<GetMoviesViewModel>> Handle()
         {
             var movies = _dbContext.Movies.Include(movies=>movies.MovieActors).ThenInclude(movies=>movies.Actor).Include(movie => movie.Director).Include(movie=>movie.Genre).ToList();
-            if(movies.Count < 1) throw new InvalidOperationException("Film verisi bulunamadı!");
+            if(movies.Count < 1) return new ErrorDataResult<List<GetMoviesViewModel>>("Film verisi bulunamadı!");
             List<GetMoviesViewModel> viewModels = _mapper.Map<List<GetMoviesViewModel>>(movies);
-            return viewModels;
+            return new SuccessDataResult<List<GetMoviesViewModel>>(viewModels);
         }
     }
 
