@@ -48,13 +48,19 @@ Bir geliştirme sunucusu için `dotnet watch run` komutunu çalıştırın. `htt
 - Tür Listeleme
 - Id'ye Göre Bir Tür Getirme
 
-### Film&Aktör
+### Müşteri
 #### Operasyonlar
-- Yeni Film&Aktör Ekleme
-- Film&Aktör Güncelleme
-- Film&Aktör Silme
-- Film&Aktör Listeleme
-- Id'ye Göre Bir Film&Aktör Getirme
+- Müşteri Oluşturma
+- Müşteri Bağlantısı(Token Oluşturma)
+- Token Yenileme
+- Id'ye Göre Müşteri Görüntüleme
+
+### Sipariş
+#### Operasyonlar
+- Sipariş Ekleme
+- Sipariş Silme (Aktif-Pasif)
+- Müşteri Id'ye Göre Sipariş Detayı
+- Sipariş Id'ye Göre Sipariş Detayı
 </details><hr>
 
 ## Model
